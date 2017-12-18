@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    {% if selected_region %}
+        Selected region : <b>{{selected_region}}</b> <br>
+
+        {% if selected_municipality %}
+            Selected municipality : <b>{{selected_municipality}}</b>
+        <br> <br>
+        {% for title, url in projects.items %}
+             <a href="{{url}}" title="Generate report PDF">{{title}}</a> <br>
+        {% endfor %}
+
+        {% endif %}
+    {% endif %}
+
+</body>
+</html>

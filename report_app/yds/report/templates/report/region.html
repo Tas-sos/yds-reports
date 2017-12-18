@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    {% if selected_region %}
+
+        <h1>Municipality of {{selected_region}}.</h1>
+
+        Now, please select a municipality :
+        <form action="{% url 'report:selected_municipality' selected_region first_municipality %}" method="post" name="municipality_form" id="municipality_form">
+            {% csrf_token %}
+
+            <select name="selected_municipality" id="selected_municipality">
+                {% for key, value in municipalities.items %}
+                    <option value="{{key}}">{{value}}</option>
+                {% endfor %}
+            </select>
+
+            <br> <br>
+
+            <input type="submit" name="municipality_submit" id="municipality_submit" value="Submit"/>
+        </form>
+
+    {% endif %}
+
+    {% load static %}
+    <script type="text/javascript" src="{% static 'report/js/jquery-3.2.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'report/js/form_actions_municipality.js' %}"></script>
+
+</body>
+</html>
