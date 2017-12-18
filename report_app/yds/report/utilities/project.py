@@ -20,14 +20,17 @@ import json
 from urllib.request import urlopen
 from urllib.parse import quote
 from datetime import datetime
-from .data_set import reverse_short_regions
-
+from utilities.data_set import reverse_short_regions
+from utilities.tex import latex2pdf
+from utilities.latex_template import set_latex
 
 __author__      = 'Tas-sos'
 __maintainer__  = 'Tas-sos'
 __email__       = 'tas-sos@g-lts.info'
-__copyright__   = 'GNU General Public License v3.0'
+__copyright__   = 'CopyLeft'
+__licence__     = 'GNU General Public License v3.0'
 __version__     = '0.7'
+__url__         = 'https://github.com/Tas-sos/yds-reports'
 
 
 
@@ -162,7 +165,6 @@ def get_project_data(a_project_url_id, view=False):
         - region        : Η περιφερειακή ενότητα του έργου.
         - municipality  : Ο δήμος του έργου.
         - buyer_name    : Το όνομα του αγοραστή του έργου.
-        - buyer_var     : Το ΑΦΜ του αγοραστή του έργου.
         - start_date    : Πότε άρχισε το έργο.
         - end_date      : Πότε τελείωσε το έργο.
         - document_URL  : TODO : ????
@@ -183,16 +185,16 @@ def get_project_data(a_project_url_id, view=False):
     project = get_json(call_url)
 
     if view:
-        print("Project id : ",              project['data']['id'] )
-        print("Project Title : ",           project['data']['title']['el'] )
-        print("Project Description : ",     project['data']['description']['el'] )
-        print("Project Region : ",          project['data']['hasRegion']['name'] )
-        print("Project Municipality : ",    project['data']['hasOperationalCode']['prefLabel']['el'] )
-        print("Project Buyer name : ",      project['data']['buyer']['name']['el'])
-        print("Project Buyer VAT : ",       project['data']['buyer']['vatID'])
-        print("Project Start date : ",      project['data']['startDate'])
-        print("Project End date : ",        project['data']['endDate'])
-        print("Document URL : ",            project['data']['documentUrl'])
+        print("Project id : ",              project['data']['id'], end="\n\n" )
+        print("Project Title : ",           project['data']['title']['el'], end="\n\n" )
+        print("Project Description : ",     project['data']['description']['el'], end="\n\n" )
+        print("Project Region : ",          project['data']['hasRegion']['name'], end="\n\n" )
+        print("Project Municipality : ",    project['data']['hasOperationalCode']['prefLabel']['el'], end="\n\n" )
+        print("Project completion : ",      project['data']['completionOfPayments'], end="\n\n")
+        print("Project Buyer name : ",      project['data']['buyer']['name']['el'], end="\n\n" )
+        print("Project Start date : ",      project['data']['startDate'], end="\n\n" )
+        print("Project End date : ",        project['data']['endDate'], end="\n\n" )
+        print("Document URL : ",            project['data']['documentUrl'], end="\n\n" )
         print("Project coordinates : {0}".format( project['data']['hasRelatedFeature']['hasGeometry']['asWKT'] ) )
 
     data = {
@@ -201,8 +203,8 @@ def get_project_data(a_project_url_id, view=False):
         "description":  project['data']['description']['el'] ,
         "region":       project['data']['hasRegion']['name'] ,
         "municipality": project['data']['hasOperationalCode']['prefLabel']['el'] ,
+        "completion":   project['data']['completionOfPayments'],
         "buyer_name":   project['data']['buyer']['name']['el'],
-        "buyer_vat":    project['data']['buyer']['vatID'],
         "start_date":   project['data']['startDate'],
         "end date":     project['data']['endDate'],
         "document_URL": project['data']['documentUrl'],
@@ -213,17 +215,56 @@ def get_project_data(a_project_url_id, view=False):
 
 
 
+def pdf_save(pdf_source, target_file):
+    """
+    Δημιουργεία ενός PDF.
+
+    Συνάρτηση όπου έχει ένα πολύ απλό σκοπό :
+    Αναλαμβάνει να πάρει όλον τον κώδικα pdf και να τον γράψει απλώς σε ένα (δυαδικό - PDF) αρχείο.
+
+    :param pdf_source: Ο κώδικας PDF.
+    :param target_file: Το όνομα του αρχείου PDF που θα δημιουργήσει.
+    :return: Δημιουργεί ένα PDF.
+    """
+
+    file = open(target_file, 'wb')
+    file.write(pdf_source)
+    file.close()
+
+
+
+
+def generate_pdf(project_data, file_name):
+
+    # document = r"""
+    #     \documentclass{article}
+    #     \begin{document}
+    #     Hello, World!
+    #     \end{document}
+    #     """
+    document = set_latex(project_data)
+
+    pdf = latex2pdf(document)
+    pdf_save(pdf, file_name)
+
+
+
 
 if __name__ == '__main__':
 
+    # Get list of projects:
     # projects = get_projects_by_region("Ipeiros")
     # projects = get_projects_by_municipality("N. IOANNINON")
 
     # for k, v in projects.items():
     #     print(k, " ~ ", v, end="\n\n")
 
-    project_url = "http://linkedeconomy.org/resource/PublicWork/258520"
+    # Get data of a project:
+    project_url = "http://linkedeconomy.org/resource/PublicWork/299500"
     project_data = get_project_data(project_url)
     # for k, v in project_data.items():
     #     print(k, " ~ ", v)
+
+    # Generate a PDF for a project:
+    generate_pdf(project_data, '299500.pdf')
 

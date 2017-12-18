@@ -18,8 +18,10 @@ https://github.com/YourDataStories/components-visualisation/blob/master/demo/js/
 __author__      = 'Tas-sos'
 __maintainer__  = 'Tas-sos'
 __email__       = 'tas-sos@g-lts.info'
-__copyright__   = 'GNU General Public License v3.0'
+__copyright__   = 'CopyLeft'
+__licence__     = 'GNU General Public License v3.0'
 __version__     = '1'
+__url__         = 'https://github.com/Tas-sos/yds-reports'
 
 
 
