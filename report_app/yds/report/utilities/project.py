@@ -20,9 +20,9 @@ import json
 from urllib.request import urlopen
 from urllib.parse import quote
 from datetime import datetime
-from utilities.data_set import reverse_short_regions
-from utilities.tex import latex2pdf
-from utilities.latex_template import set_latex
+from .data_set import reverse_short_regions
+from .latex.tex import latex2pdf
+from .latex.latex_template import set_latex
 
 __author__      = 'Tas-sos'
 __maintainer__  = 'Tas-sos'
