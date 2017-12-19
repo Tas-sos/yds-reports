@@ -185,30 +185,35 @@ def get_project_data(a_project_url_id, view=False):
     project = get_json(call_url)
 
     if view:
-        print("Project id : ",              project['data']['id'], end="\n\n" )
-        print("Project Title : ",           project['data']['title']['el'], end="\n\n" )
-        print("Project Description : ",     project['data']['description']['el'], end="\n\n" )
-        print("Project Region : ",          project['data']['hasRegion']['name'], end="\n\n" )
-        print("Project Municipality : ",    project['data']['hasOperationalCode']['prefLabel']['el'], end="\n\n" )
-        print("Project completion : ",      project['data']['completionOfPayments'], end="\n\n")
-        print("Project Buyer name : ",      project['data']['buyer']['name']['el'], end="\n\n" )
-        print("Project Start date : ",      project['data']['startDate'], end="\n\n" )
-        print("Project End date : ",        project['data']['endDate'], end="\n\n" )
+        print("ID : ",                      project['data']['id'], end="\n\n" )
+        print("Title : ",                   project['data']['title']['el'], end="\n\n" )
+        print("Description : ",             project['data']['description']['el'], end="\n\n" )
+        print("Region : ",                  project['data']['hasRegion']['name'], end="\n\n" )
+        print("Municipality : ",            project['data']['hasOperationalCode']['prefLabel']['el'], end="\n\n" )
+        print("Completion of payments : ",  project['data']['completionOfPayments'], end="\n\n")
+        print("Completion of contracts : ", project['data']['completionOfContracts'], end="\n\n")
+        print("Buyer name : ",              project['data']['buyer']['name']['el'], end="\n\n" )
+        print("Start date : ",              project['data']['startDate'], end="\n\n" )
+        print("End date : ",                project['data']['endDate'], end="\n\n" )
         print("Document URL : ",            project['data']['documentUrl'], end="\n\n" )
-        print("Project coordinates : {0}".format( project['data']['hasRelatedFeature']['hasGeometry']['asWKT'] ) )
+        print("Coordinates : {0}".format( project['data']['hasRelatedFeature']['hasGeometry']['asWKT'] ) )
 
     data = {
-        "id":           project['data']['id'] ,
-        "title":        project['data']['title']['el'] ,
-        "description":  project['data']['description']['el'] ,
-        "region":       project['data']['hasRegion']['name'] ,
-        "municipality": project['data']['hasOperationalCode']['prefLabel']['el'] ,
-        "completion":   project['data']['completionOfPayments'],
-        "buyer_name":   project['data']['buyer']['name']['el'],
-        "start_date":   project['data']['startDate'],
-        "end date":     project['data']['endDate'],
-        "document_URL": project['data']['documentUrl'],
-        "coordinates":  project['data']['hasRelatedFeature']['hasGeometry']['asWKT']
+        "id":                       project['data']['id'] ,
+        "title":                    project['data']['title']['el'] ,
+        "description":              project['data']['description']['el'] ,
+        "region":                   project['data']['hasRegion']['name'] ,
+        "municipality":             project['data']['hasOperationalCode']['prefLabel']['el'] ,
+        "completion_of_payments":   project['data']['completionOfPayments'],
+        "completion_of_contracts":  project['data']['completionOfContracts'],
+        "buyer_name":               project['data']['buyer']['name']['el'],
+        "bayer_VAT":                project['data']['buyer']['vatID'],
+        "start_date":               project['data']['startDate'],
+        "end_date":                 project['data']['endDate'],
+        "budget":                   project['data']['hasBudgetAggregate']['aggregatedAmount'],
+        "spending":                 project['data']['hasSpendingAggregate']['aggregatedAmount'],
+        "document_URL":             project['data']['documentUrl'],
+        "coordinates":              project['data']['hasRelatedFeature']['hasGeometry']['asWKT']
          }
 
     return data
