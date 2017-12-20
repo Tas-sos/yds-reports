@@ -18,8 +18,10 @@ https://github.com/YourDataStories/components-visualisation/blob/master/demo/js/
 __author__      = 'Tas-sos'
 __maintainer__  = 'Tas-sos'
 __email__       = 'tas-sos@g-lts.info'
-__copyright__   = 'GNU General Public License v3.0'
+__copyright__   = 'CopyLeft'
+__licence__     = 'GNU General Public License v3.0'
 __version__     = '1'
+__url__         = 'https://github.com/Tas-sos/yds-reports'
 
 
 
@@ -51,34 +53,34 @@ reverse_short_regions = {
     'Dytiki Ellada':	                'GR.GW',
     'Dytiki Makedonia':	                'GR.MW',
     'Ipeiros':	                        'GR.EP',
-    'Thessalia':	                    'GR.TS',
-    'Ionioi Nisoi':	                    'GR.II',
-    'Kentriki Makedonia':	            'GR.MC',
-    'Kriti':	                        'GR.CR',
-    'Notio Aigaio':	                    'GR.AS',
-    'Peloponnisos':	                    'GR.PP',
-    'Sterea Ellada':	                'GR.GC',
-    'Ayion Oros':	                    'GR.MA',
+    'Thessalia':			'GR.TS',
+    'Ionioi Nisoi':			'GR.II',
+    'Kentriki Makedonia':		'GR.MC',
+    'Kriti':				'GR.CR',
+    'Notio Aigaio':			'GR.AS',
+    'Peloponnisos':			'GR.PP',
+    'Sterea Ellada':			'GR.GC',
+    'Ayion Oros':			'GR.MA',
 }
 
 
 
 
 regions = {
-    'Anatoliki Makedonia kai Thraki': 'Ανατολική Μακεδονία & Θράκη',
-    'Attiki'                        : 'Αττική',
-    'Voreio Aigaio'					: 'Βόρειο Αιγαίο',
-    'Dytiki Ellada'					: 'Δυτική Ελλάδα',
-    'Dytiki Makedonia'				: 'Δυτική Μακεδονία',
-    'Ipeiros'						: 'Ήπειρος',
-    'Thessalia'						: 'Θεσσαλία',
-    'Ionioi Nisoi'					: 'Ιόνιοι Νήσοι',
-    'Kentriki Makedonia'			: 'Κεντρική Μακεδονία',
-    'Kriti'							: 'Κρήτη',
-    'Notio Aigaio'					: 'Νότιο Αιγαίο',
-    'Peloponnisos'					: 'Πελοπόννησος',
-    'Sterea Ellada'					: 'Στερεά Ελλάδα',
-    'Ayion Oros'					: 'Άγιο Όρος'
+    'Anatoliki Makedonia kai Thraki':	'Ανατολική Μακεδονία & Θράκη',
+    'Attiki':				'Αττική',
+    'Voreio Aigaio':			'Βόρειο Αιγαίο',
+    'Dytiki Ellada':			'Δυτική Ελλάδα',
+    'Dytiki Makedonia':			'Δυτική Μακεδονία',
+    'Ipeiros':				'Ήπειρος',
+    'Thessalia':			'Θεσσαλία',
+    'Ionioi Nisoi':			'Ιόνιοι Νήσοι',
+    'Kentriki Makedonia':		'Κεντρική Μακεδονία',
+    'Kriti':				'Κρήτη',
+    'Notio Aigaio':			'Νότιο Αιγαίο',
+    'Peloponnisos':			'Πελοπόννησος',
+    'Sterea Ellada':			'Στερεά Ελλάδα',
+    'Ayion Oros':			'Άγιο Όρος'
 }
 
 
@@ -86,89 +88,87 @@ regions = {
 
 municipality = {
     'Anatoliki Makedonia kai Thraki': {
-        'N. DRAMAS': 'Ν. Δράμας',
-        'N. EVROU': 'Ν. Έβρου',
-        'N. KAVALAS': 'Ν. Καβάλας',
-        'N. XANTHIS': 'Ν. Ξάνθης',
-        'N. RODOPIS': 'Ν. Ροδόπης'
+        'N. DRAMAS':	'Ν. Δράμας',
+        'N. EVROU':	'Ν. Έβρου',
+        'N. KAVALAS':	'Ν. Καβάλας',
+        'N. XANTHIS':	'Ν. Ξάνθης',
+        'N. RODOPIS':	'Ν. Ροδόπης'
     },
     'Attiki': {
-        'N. PIREOS KE NISON': 'Ν. Πειραιώς και Νήσων',
-        'N. ANATOLIKIS ATTIKIS': 'Ν. Ανατολικής Αττικής',
-        'N. DYTIKIS ATTIKIS': 'Ν. Δυτικής Αττικής',
-        'N. ATHINON': 'Ν. Αθηνών'
+        'N. PIREOS KE NISON':		'Ν. Πειραιώς και Νήσων',
+        'N. ANATOLIKIS ATTIKIS':	'Ν. Ανατολικής Αττικής',
+        'N. DYTIKIS ATTIKIS':		'Ν. Δυτικής Αττικής',
+        'N. ATHINON':			'Ν. Αθηνών'
     },
     'Voreio Aigaio': {
-        'N. CHIOU': 'Ν. Χίου',
-        'N. SAMOU': 'Ν. Σάμου',
-        'N. LESVOU': 'Ν. Λέσβου'
+        'N. CHIOU':	'Ν. Χίου',
+        'N. SAMOU':	'Ν. Σάμου',
+        'N. LESVOU':	'Ν. Λέσβου'
     },
     'Dytiki Ellada': {
-        'N. ACHAIAS': 'Ν. Αχαΐας',
-        'N. ETOLOAKARNANIAS': 'Ν. Αιτωλοακαρνανίας',
-        'N. ILIAS': 'Ν. Ηλείας'
+        'N. ACHAIAS':		'Ν. Αχαΐας',
+        'N. ETOLOAKARNANIAS':	'Ν. Αιτωλοακαρνανίας',
+        'N. ILIAS':		'Ν. Ηλείας'
     },
     'Dytiki Makedonia': {
-        'N. FLORINAS': 'Ν. Φλώρινας',
-        'N. GREVENON': 'Ν. Γρεβενών',
-        'N. KASTORIAS': 'Ν. Καστοριάς',
-        'N. KOZANIS': 'Ν. Κοζάνης'
+        'N. FLORINAS':	'Ν. Φλώρινας',
+        'N. GREVENON':	'Ν. Γρεβενών',
+        'N. KASTORIAS':	'Ν. Καστοριάς',
+        'N. KOZANIS':	'Ν. Κοζάνης'
     },
     'Ipeiros': {
-        'N. ARTAS': 'Ν. Άρτας',
-        'N. IOANNINON': 'Ν. Ιωαννίνων',
-        'N. PREVEZAS': 'Ν. Πρέβεζας',
-        'N. THESPROTIAS': 'Ν. Θεσπρωτίας'
+        'N. ARTAS':		'Ν. Άρτας',
+        'N. IOANNINON':		'Ν. Ιωαννίνων',
+        'N. PREVEZAS':		'Ν. Πρέβεζας',
+        'N. THESPROTIAS':	'Ν. Θεσπρωτίας'
     },
     'Thessalia': {
-        'N. MAGNISIAS': ' Ν. Μαγνησίας',
-        'N. KARDITSAS': ' Ν. Καρδίτσας',
-        'N. LARISAS': ' Ν. Λάρισας',
-        'N. TRIKALON': ' Ν. Τρικάλων'
+        'N. MAGNISIAS':	' Ν. Μαγνησίας',
+        'N. KARDITSAS':	' Ν. Καρδίτσας',
+        'N. LARISAS':	' Ν. Λάρισας',
+        'N. TRIKALON':	' Ν. Τρικάλων'
     },
     'Ionioi Nisoi': {
-        'N. KERKYRAS': 'Ν. Κέρκυρας',
-        'N. KEFALLONIAS': 'Ν. Κεφαλληνίας',
-        'N. LEFKADAS': 'Ν. Λευκάδας',
-        'N. ZAKYNTHOU': 'Ν. Ζακύνθου'
+        'N. KERKYRAS':		'Ν. Κέρκυρας',
+        'N. KEFALLONIAS':	'Ν. Κεφαλληνίας',
+        'N. LEFKADAS':		'Ν. Λευκάδας',
+        'N. ZAKYNTHOU':		'Ν. Ζακύνθου'
     },
     'Kentriki Makedonia': {
-        'N. IMATHIAS': 'Ν. Ημαθίας',
-        'N. THESSALONIKIS': 'Ν. Θεσσαλονίκης',
-        'N. KILKIS': 'Ν. Κιλκίς',
-        'N. PELLAS': 'Ν. Πέλλας',
-        'N. PIERIAS': 'Ν. Πιερίας',
-        'N. SERRON': 'Ν. Σερρών ',
-        'N. CHALKIDIKIS': 'Ν. Χαλκιδικής'
+        'N. IMATHIAS':		'Ν. Ημαθίας',
+        'N. THESSALONIKIS':	'Ν. Θεσσαλονίκης',
+        'N. KILKIS':		'Ν. Κιλκίς',
+        'N. PELLAS':		'Ν. Πέλλας',
+        'N. PIERIAS':		'Ν. Πιερίας',
+        'N. SERRON':		'Ν. Σερρών ',
+        'N. CHALKIDIKIS':	'Ν. Χαλκιδικής'
     },
     'Kriti': {
-        'N. CHANION': 'Ν. Χανίων',
-        'N. IRAKLIOU': 'Ν. Ηρακλείου',
-        'N. LASITHIOU': 'Ν. Λασιθίου',
-        'N. RETHYMNOU': 'Ν. Ρεθύμνης'
+        'N. CHANION':	'Ν. Χανίων',
+        'N. IRAKLIOU':	'Ν. Ηρακλείου',
+        'N. LASITHIOU':	'Ν. Λασιθίου',
+        'N. RETHYMNOU':	'Ν. Ρεθύμνης'
     },
     'Notio Aigaio': {
-        'N. KYKLADON': 'Ν. Κυκλάδων',
-        'N. DODEKANISON': 'Ν. Δωδεκανήσου'
+        'N. KYKLADON':		'Ν. Κυκλάδων',
+        'N. DODEKANISON':	'Ν. Δωδεκανήσου'
     },
     'Peloponnisos': {
-        'N. ARKADIAS': 'Ν. Αρκαδίας',
-        'N. ARGOLIDAS': 'Ν. Αργολίδας',
-        'N. KORINTHOU': 'Ν. Κορινθίας',
-        'N. LAKONIAS': 'Ν. Λακωνίας',
-        'N. MESSINIAS': 'Ν. Μεσσηνίας'
+        'N. ARKADIAS':	'Ν. Αρκαδίας',
+        'N. ARGOLIDAS':	'Ν. Αργολίδας',
+        'N. KORINTHOU':	'Ν. Κορινθίας',
+        'N. LAKONIAS':	'Ν. Λακωνίας',
+        'N. MESSINIAS':	'Ν. Μεσσηνίας'
     },
     'Sterea Ellada': {
-        'N. VIOTIAS': 'Ν. Βοιωτίας',
-        'N. EVVIAS': 'Ν. Εύβοιας',
-        'N. EVRYTANIAS': 'Ν. Ευρυτανίας',
-        'N. FOKIDAS': 'Ν. Φωκίδας',
-        'N. FTHIOTIDAS': 'Ν. Φθιώτιδας'
+        'N. VIOTIAS':		'Ν. Βοιωτίας',
+        'N. EVVIAS':		'Ν. Εύβοιας',
+        'N. EVRYTANIAS':	'Ν. Ευρυτανίας',
+        'N. FOKIDAS':		'Ν. Φωκίδας',
+        'N. FTHIOTIDAS':	'Ν. Φθιώτιδας'
     },
     'Ayion Oros': {
-        'AGIO OROS': 'Άγιο Όρος'
+        'AGIO OROS':	'Άγιο Όρος'
     }
 }
-
-
 
