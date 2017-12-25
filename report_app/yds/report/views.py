@@ -1,7 +1,9 @@
+from django.http import Http404, HttpResponse
 from django.shortcuts import render
-from django.http import Http404
+from django.core.files.storage import FileSystemStorage
+
 from .utilities.data_set import regions, municipality
-from .utilities.project import get_projects_by_municipality
+from .utilities.project import get_projects_by_municipality, get_project_data, search, generate_pdf, pdf_name
 
 
 def index(request):
@@ -37,10 +39,13 @@ def selected_region(request, a_region):
 
     try:
         if regions[a_region]:
+
             context = {'selected_region': a_region,
                        'first_municipality': list(municipality[a_region].keys())[0],
                        'municipalities': municipality[a_region]}
+
             return render(request, 'report/region.html', context)
+
     except KeyError:  # Αν δε βρει δηλαδή την περιφέρεια αυτή
         raise Http404("The region \"{0}\" was not found it!".format(a_region))
 
@@ -71,11 +76,55 @@ def selected_municipality(request, a_region, a_municipality):
 
                 projects = get_projects_by_municipality(a_municipality)
 
-
                 context = {'selected_region': a_region,
                            'selected_municipality': a_municipality,
                            'projects': projects}
+
                 return render(request, 'report/municipality.html', context)
     except KeyError:
         raise Http404("The municipality \"{0}\" was not found it!".format(a_region))
+
+
+
+
+def create_pdf(request, a_region, a_municipality, project_url_id):
+
+    url = "http://linkedeconomy.org/resource/PublicWork/" + str(project_url_id)
+    file_name = str(project_url_id) + ".pdf"
+
+    # Downloading data from this project :
+    project_data = get_project_data(url)
+
+    # Search for related articles for this project :
+    related_articles = search(project_data['title'])
+
+    # print(project_data['description'])
+    # print("\n ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \n ")
+
+    # Generating the report PDF for this project:
+    try:
+        generate_pdf(project_data, related_articles, pdf_name("report/static/report/download/", url))
+    except ValueError as log:
+        print("Compiler error from LaTeX, for project : {0}".format(url))
+        print('-------------------------------------------------------------------------------------------------------')
+        print('LaTex Log |')
+        print('-----------')
+        print(log)
+        print('-------------------------------------------------------------------------------------------------------')
+
+        return render(request, 'report/pdf.html', {'project_url': url})
+
+    # print(project_data['description'], end="\n\n")
+
+    file_system = FileSystemStorage('report/static/report/download/')
+    with file_system.open(file_name) as pdf:
+
+        # Create the HttpResponse object with the appropriate PDF headers.
+        response = HttpResponse(pdf, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="' + file_name + '"'
+
+        return response
+
+
+
 
