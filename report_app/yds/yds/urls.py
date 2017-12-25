@@ -18,5 +18,8 @@ from django.urls import path, include
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
+
+    # Basic web functionality :
     path('', include('report.urls')),
+
 ]
