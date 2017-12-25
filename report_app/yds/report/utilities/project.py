@@ -171,7 +171,7 @@ def get_project_data(a_project_url_id, view=False):
         - completion_of_contracts	: Το ποσοστό ολοκλήρωσης των συμβάσεων.
         - buyer_name			: Το όνομα του αγοραστή του έργου.
         - buyer_id_URL			: Το "linkedeconomy.org" URL του αγοραστή.
-        - bayer_VAT             : Το Α.Φ.Μ. του αγοραστή.
+        - bayer_VAT			: Το Α.Φ.Μ. του αγοραστή.
         - start_date			: Πότε άρχισε το έργο.
         - end_date			: Πότε τελείωσε το έργο.
         - budget			: Ο προϋπολογισμός του έργου.
@@ -208,15 +208,22 @@ def get_project_data(a_project_url_id, view=False):
         "budget":                   project['data']['hasBudgetAggregate']['aggregatedAmount'],
         "spending":                 project['data']['hasSpendingAggregate']['aggregatedAmount'],
         "document_URL":             project['data']['documentUrl'],
-        "coordinates":              project['data']['hasRelatedFeature']['hasGeometry']['asWKT']
          }
 
-    try:  # Επειδή μερικές φορές δεν υπάρχει στα δεδομένα.
+    # Επειδή μερικά δεδομένα, μερικές φορές δεν υπάρχουν σε όλα τα έργα.
+
+    try:
         data['bayer_VAT'] = project['data']['buyer']['vatID']
     except KeyError:
         data['bayer_VAT'] = '-'
 
-    if view :
+    try:
+        data['coordinates'] = project['data']['hasRelatedFeature']['hasGeometry']['asWKT']
+    except (KeyError, TypeError):  # TODO: Να το ελέγξω το "TypeError" ( μου έβγαζε "list indices must be integers or slices, not str" )
+        data['coordinates'] = '-'
+
+
+    if view:
         for k, v in data.items():
             print("{0} \t: {1}".format(k, v))
 
@@ -263,7 +270,7 @@ def generate_pdf(project_data, articles, file_name):
 
 
 
-def pdf_name( a_target_path, a_project_id ):
+def pdf_name(a_target_path, a_project_id):
     """
     Ορισμός διαδρομής και ονόματος αποθήκευσης του PDF αρχείου.
 
