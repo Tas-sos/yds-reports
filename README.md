@@ -7,7 +7,7 @@
 > Η παρούσα εφαρμογή προτάθηκε στα πλαίσια του [YDS Hackathon in Athens](https://yourdatastories.eu/features/hackathons/yds-hackathon-athens/).
 
 <p align="center">
-<a href="http://platform.yourdatastories.eu/"><img src="http://platform.yourdatastories.eu/sites/default/files/ydslogo.png" alt="YourDataStories"></a>
+<a href="http://platform.yourdatastories.eu/"><img src="https://yourdatastories.eu/wp-content/uploads/2016/01/YDS_Logo_SiteKopie.png" alt="YourDataStories"></a>
 <br/> <br/>
 <a href="https://www.diavgeia.gov.gr/"><img src="https://www.diavgeia.gov.gr/img/diavgeia_all_logo.png" alt="Diavgeia"></a>
 <br/>
