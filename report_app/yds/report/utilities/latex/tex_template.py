@@ -49,7 +49,32 @@ def set_latex(project_data, articles):
     :return: Τον πλήρες LaTeX κώδικα εμπλουτισμένο με τα δεδομένα του εκάστοτε έργου.
     """
 
-    images_path = path.dirname( __file__ ) + "/images/"
+    images_path = path.dirname(__file__) + "/images/"
+
+    LaTeX_special_characters = [ ('&', '\&'),
+                                 ('\n\n', '\\\\~\\\\'),		# Two new lines.
+                                 ('\n', '\\newline '),		# New line character.
+                                 ("_", "\\textunderscore"),	# Underscore.
+                                 ('.0', '')			# For amounts (because they are converted from float to string).
+                                ]
+
+    # Convert to string :
+    project_data['budget']                  = str(project_data['budget'])
+    project_data['spending']                = str(project_data['spending'])
+    project_data['completion_of_payments']  = str(project_data['completion_of_payments'])
+    project_data['completion_of_contracts'] = str(project_data['completion_of_contracts'])
+
+
+    # Avoid special characters :
+    for k, v in LaTeX_special_characters:
+        project_data['region']                  = project_data['region'].replace(k, v)
+        project_data['buyer_name']              = project_data['buyer_name'].replace(k, v)
+        project_data['budget']                  = project_data['budget'].replace(k, v)
+        project_data['spending']                = project_data['spending'].replace(k, v)
+        project_data['completion_of_payments']  = project_data['completion_of_payments'].replace(k, v)
+        project_data['completion_of_contracts'] = project_data['completion_of_contracts'].replace(k, v)
+        project_data['description']             = project_data['description'].replace(k, v)
+
 
     latex = r"""\documentclass[12pt,a4paper]{report}
     \usepackage[a4paper, total={7in, 9in}]{geometry}
@@ -93,7 +118,7 @@ def set_latex(project_data, articles):
     {\scshape\LARGE \href{""" + project_data['id_URL'] + r"""}{\gr{""" + project_data['title'] + r"""}} \par}
     \vspace{0.7cm}
     
-    {\Large \gr Περιφερειακή ενότητα : \textbf{""" + project_data['region'].replace('&', '\&') + r"""}}
+    {\Large \gr Περιφερειακή ενότητα : \textbf{""" + project_data['region'] + r"""}}
     \vspace{0.5cm}
     
     {\Large\bfseries \gr Αγοραστής : \par}
@@ -101,22 +126,33 @@ def set_latex(project_data, articles):
     \footnotesize{\gr Α.Φ.Μ. : """ + project_data['bayer_VAT'] + r"""}
     \vspace{0.5cm}
     
-    {\large \gr Προϋπολογισμός έργου : \textbf{""" + str(project_data['budget']).replace('.0', '') + r""" \euro} \par}
-    {\large \gr Συνολική δαπάνη : \textbf{""" + str(project_data['spending']).replace('.0', '') + r""" \euro} \par}
+    {\large \gr Προϋπολογισμός έργου : \textbf{""" + project_data['budget'] + r""" \euro} \par}
+    {\large \gr Συνολική δαπάνη : \textbf{""" + project_data['spending'] + r""" \euro} \par}
     \vspace{0.2cm}
 
     {\large \gr Ημερομηνία έναρξης : """ + project_data['start_date'][:10] + r""" \par}
     {\large \gr Ημερομηνία λήξης : """ + project_data['end_date'][:10] + r""" \par}
     \vspace{0.4cm}
     
-    {\Large {\gr Ολοκλήρωση πληρωμών έργου : \textbf{""" + str(project_data['completion_of_payments']) + r"""\%}} \par}
-    {\Large {\gr Ολοκλήρωση συμβάσεων έργου : \textbf{""" + str(project_data['completion_of_contracts']) + r"""\%}} \par}
+    {\Large {\gr Ολοκλήρωση πληρωμών έργου : \textbf{""" + project_data['completion_of_payments'] + r"""\%}} \par}
+    {\Large {\gr Ολοκλήρωση συμβάσεων έργου : \textbf{""" + project_data['completion_of_contracts'] + r"""\%}} \par}
     \vspace{0.4cm}
     
     
     {\Large\itshape {\gr Περιγραφή :}\par}
     \raggedright
-    {\normalsize {\gr """ + project_data['description'].replace('\n', '\\\\').replace('&', '\&') + r"""}\par}\vspace{0.5cm}
+    {\normalsize {\gr """ + project_data['description'] + r"""}\par}\vspace{0.5cm}
+    
+    \end{titlepage}
+
+    \section*{\gr Σχετικές δημοσιεύσεις στο διαδίκτυο\let\thefootnote\relax\footnote{Οι δημοσιεύσεις προέρχονται έπειτα από αναζήτηση στην μηχανή αναζήτησης {\en \changeurlcolor{myRed}\href{https://www.google.com/}{Google}.}}. :}
+    \begin{itemize}"""
+    for article_title, article_link in articles.items():
+        latex += """\item \changeurlcolor{blue}\href{""" + article_link + """}{\gr """
+        for k, v in LaTeX_special_characters:
+            article_title = article_title.replace(k, v)
+        latex += article_title + """}"""
+    latex += r"""\end{itemize}
     
     \centering
     \vfill
@@ -124,13 +160,11 @@ def set_latex(project_data, articles):
     \textsc{yourdatastories.eu}}
     
     {\footnotesize \today\par}
-    \end{titlepage}
-
-    \section*{\gr Σχετικές δημοσιεύσεις στο διαδίκτυο\let\thefootnote\relax\footnote{Οι δημοσιεύσεις προέρχονται έπειτα από αναζήτηση στην μηχανή αναζήτησης {\en \changeurlcolor{myRed}\href{https://www.google.com/}{Google}.}}. :}
-    \begin{itemize}"""
-    for article_title, article_link in articles.items():
-        latex += "\item \changeurlcolor{blue}\href{" + article_link + "}{\gr " + article_title + "}"
-    latex += r"""\end{itemize}
+    
     \end{document}"""
 
     return latex
+
+
+
+
