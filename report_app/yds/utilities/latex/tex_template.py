@@ -49,14 +49,16 @@ def set_latex(project_data, articles):
     :return: Τον πλήρες LaTeX κώδικα εμπλουτισμένο με τα δεδομένα του εκάστοτε έργου.
     """
 
+
     images_path = path.dirname(__file__) + "/images/"
 
     LaTeX_special_characters = [ ('&', '\&'),
-                                 ('\n\n', '\\\\~\\\\'),		# Two new lines.
-                                 ('\n', '\\newline '),		# New line character.
-                                 ("_", "\\textunderscore"),	# Underscore.
+                                 ('\n\n', '\\\\~\\\\'),         # Two new lines.
+                                 ('\n', '\\newline '),          # New line character.
+                                 ("_", "\\textunderscore"),     # Underscore.
+                                 ('%', '\\%'),                  # Percent symbol.
                                  ('.0', '')			# For amounts (because they are converted from float to string).
-                                ]
+                                 ]
 
     # Convert to string :
     project_data['budget']                  = str(project_data['budget'])
@@ -67,6 +69,7 @@ def set_latex(project_data, articles):
 
     # Avoid special characters :
     for k, v in LaTeX_special_characters:
+        project_data['title']                   = project_data['title'].replace(k, v)
         project_data['region']                  = project_data['region'].replace(k, v)
         project_data['buyer_name']              = project_data['buyer_name'].replace(k, v)
         project_data['budget']                  = project_data['budget'].replace(k, v)
