@@ -2,8 +2,8 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
 
-from .utilities.data_set import regions, municipality
-from .utilities.project import get_projects_by_municipality, get_project_data, search, generate_pdf, pdf_name
+from utilities.data_set import regions, municipality
+from utilities.project import get_projects_by_municipality, get_project_data, search, generate_pdf, pdf_name
 
 
 def index(request):
@@ -72,17 +72,20 @@ def selected_municipality(request, a_region, a_municipality):
 
     try:
         if regions[a_region]:  # Αν υπάρχει η περιφέρεια μέσα στις περιφέρειες
-            if municipality[a_region][a_municipality]:  # Αν υπάρχει ο νομός μέσα στη συγκεκριμένη περιφέρεια!
+            try:
+                if municipality[a_region][a_municipality]:  # Αν υπάρχει ο νομός μέσα στη συγκεκριμένη περιφέρεια!
 
-                projects = get_projects_by_municipality(a_municipality)
+                    projects = get_projects_by_municipality(a_municipality)
 
-                context = {'selected_region': a_region,
-                           'selected_municipality': a_municipality,
-                           'projects': projects}
+                    context = {'selected_region': a_region,
+                               'selected_municipality': a_municipality,
+                               'projects': projects}
 
-                return render(request, 'report/municipality.html', context)
+                    return render(request, 'report/municipality.html', context)
+            except KeyError:
+                raise Http404("The municipality \"{0}\" was not found it!".format(a_municipality))
     except KeyError:
-        raise Http404("The municipality \"{0}\" was not found it!".format(a_region))
+        raise Http404("The region \"{0}\" was not found it!".format(a_region))
 
 
 
@@ -98,9 +101,6 @@ def create_pdf(request, a_region, a_municipality, project_url_id):
     # Search for related articles for this project :
     related_articles = search(project_data['title'])
 
-    # print(project_data['description'])
-    # print("\n ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \n ")
-
     # Generating the report PDF for this project:
     try:
         generate_pdf(project_data, related_articles, pdf_name("report/static/report/download/", url))
@@ -114,8 +114,6 @@ def create_pdf(request, a_region, a_municipality, project_url_id):
 
         return render(request, 'report/pdf.html', {'project_url': url})
 
-    # print(project_data['description'], end="\n\n")
-
     file_system = FileSystemStorage('report/static/report/download/')
     with file_system.open(file_name) as pdf:
 
@@ -124,6 +122,8 @@ def create_pdf(request, a_region, a_municipality, project_url_id):
         response['Content-Disposition'] = 'attachment; filename="' + file_name + '"'
 
         return response
+
+
 
 
 
