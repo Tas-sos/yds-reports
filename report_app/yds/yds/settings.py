@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'report.apps.ReportConfig',     # Basic app !
+    'report.apps.ReportConfig',         # The basic page application !
+    'report_api.apps.ReportApiConfig',  # The API (JSON) application !
 ]
 
 MIDDLEWARE = [
