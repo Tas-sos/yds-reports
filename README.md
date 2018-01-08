@@ -39,7 +39,7 @@ python3 -m venv a_tutorial-env_directory
   * Εφόσον ενεργοποιήσετε το εικονικό περιβάλλον, τότε εγκαθιστάτε τα [απαραίτητα πακέτα](https://github.com/Tas-sos/yds-reports#%CE%91%CF%80%CE%B1%CE%B9%CF%84%CE%AE%CF%83%CE%B5%CE%B9%CF%82) με την χρήση του εργαλείου pip. π.χ. για την εγκατάσταση της [τελευταίας έκδοσης του Django](https://www.djangoproject.com/download/) :
   ```bash
   pip install Django==2.0.0
-```
+  ```
 
 * Εγκατάσταση σε ένα διακομιστή ιστού παραγωγής : <br>
 Η επίσημη ιστοσελίδα του Django project, παρέχει πληροφορίες για την συνεργασία με τον [Apache web server](https://docs.djangoproject.com/el/2.0/howto/deployment/wsgi/) καθώς και για τον [nginx web server](https://docs.djangoproject.com/el/2.0/howto/deployment/wsgi/uwsgi/).
