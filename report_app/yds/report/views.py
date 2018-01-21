@@ -10,8 +10,9 @@ def index(request):
     """
     View που καλείται όταν ο χρήστης επισκεφτεί την αρχική σελίδα και θα πρέπει να επιλέξει μια περιφερειακή ενότητα.
 
-    Δίνεται στη σελίδα το λεξικό με όλες τις περιφερειακές ενότητες καθώς και την πρώτη
-    ( στο λεξικό - για λόγους υλοποίησης στο action της φόρμας της σελίδας - ) περιφερειακή ενότητα.
+    Δίνεται στη σελίδα :
+	- Το λεξικό με όλες τις περιφερειακές ενότητες.
+	- Την πρώτη περιφερειακή ενότητα ( στο λεξικό - για λόγους υλοποίησης στο action της φόρμας της σελίδας - ).
 
     :param request: Το αίτημα του χρήστη.
     :return: Την σελίδα «report/index.html» με τις παραπάνω πληροφορίες.
@@ -30,7 +31,7 @@ def selected_region(request, a_region):
     Δίνεται στην σελίδα  :
         - Η επιλεγμένη περιφερειακή ενότητα.
         - Το λεξικό με όλους τους νομούς της περιφερειακής ενότητας που επιλέχθηκε.
-        - Τον πρώτο νομό ( στο λεξικό - για λόγους υλοποίησης στο action της φόρμας της σελίδας - )
+        - Τον πρώτο νομό ( στο λεξικό - για λόγους υλοποίησης στο action της φόρμας της σελίδας - ).
 
     :param request: Το αίτημα του χρήστη.
     :param a_region: Μια περιφερειακή ενότητα.
@@ -54,7 +55,7 @@ def selected_region(request, a_region):
 
 def selected_municipality(request, a_region, a_municipality):
     """
-    View που καλείται όταν ο χρήστης έχει επιλέξει μια περιφερειακή ενότητα και νομό και θα πρέπει να επιλέξει ένα έργο.
+    View που καλείται όταν ο χρήστης έχει επιλέξει μια περιφερειακή ενότητα και νομό, και θα πρέπει να επιλέξει ένα έργο.
 
     Σε αυτή την σελίδα εμφανίζονται τα έργα που υπάρχουν για τον συγκεκριμένο νομό που έχει επιλεχθεί.
     Ο χρήστης μπορεί να επιλέξει κάποιο από αυτά τα έργα και να κατεβάσει μια PDF αναφορά για αυτό.
@@ -79,7 +80,8 @@ def selected_municipality(request, a_region, a_municipality):
 
                     context = {'selected_region': a_region,
                                'selected_municipality': a_municipality,
-                               'projects': projects}
+                               'projects': projects,
+                               'total_number_of_projects': len(projects)}
 
                     return render(request, 'report/municipality.html', context)
             except KeyError:
@@ -91,6 +93,20 @@ def selected_municipality(request, a_region, a_municipality):
 
 
 def create_pdf(request, a_region, a_municipality, project_url_id):
+    """
+    Δημιουργία του εγγράφου αναφοράς PDF και επιστροφή αυτού στον χρήστη.
+
+    Η παρούσα συνάρτηση είναι υπεύθυνη ώστε να προσπαθήσει να δημιουργήσει ένα PDF έγγραφο αναφοράς για το έργο που θα
+    της ζητηθεί και έπειτα να το επιστρέψει στον χρήστη ώστε να το κατεβάσει.
+
+    TODO: Να ανοίγει μια νέα καρτέλα μονάχα όταν υπάρχει πρόβλημα στην παραγωγή του PDF.
+
+    :param request: Το αίτημα του χρήστη.
+    :param a_region: Μια περιφερειακή ενότητα.
+    :param a_municipality: Ένας νομός της παραπάνω περιφερειακής ενότητας.
+    :param project_url_id: Το id του έργου ( όπως είναι στο «linkedeconomy.org» ).
+    :return: Ένα έγγραφο αναφοράς σε μορφή PDF με τα στοιχεία του έργου που δόθηκε ως παράμετρος.
+    """
 
     url = "http://linkedeconomy.org/resource/PublicWork/" + str(project_url_id)
     file_name = str(project_url_id) + ".pdf"
@@ -101,7 +117,7 @@ def create_pdf(request, a_region, a_municipality, project_url_id):
     # Search for related articles for this project :
     related_articles = search(project_data['title'])
 
-    # Generating the report PDF for this project:
+    # Generating the report PDF for this project :
     try:
         generate_pdf(project_data, related_articles, pdf_name("report/static/report/download/", url))
     except ValueError as log:
@@ -114,6 +130,8 @@ def create_pdf(request, a_region, a_municipality, project_url_id):
 
         return render(request, 'report/pdf.html', {'project_url': url})
 
+    # Create response :
+
     file_system = FileSystemStorage('report/static/report/download/')
     with file_system.open(file_name) as pdf:
 
@@ -122,9 +140,6 @@ def create_pdf(request, a_region, a_municipality, project_url_id):
         response['Content-Disposition'] = 'attachment; filename="' + file_name + '"'
 
         return response
-
-
-
 
 
 
