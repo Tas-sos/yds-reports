@@ -55,7 +55,7 @@ def set_latex(project_data, articles):
     LaTeX_special_characters = [ ('&', '\&'),
                                  ('\n\n', '\\\\~\\\\'),         # Two new lines.
                                  ('\n', '\\newline '),          # New line character.
-                                 ("_", "\\textunderscore"),     # Underscore.
+                                 ("_", "\\textunderscore "),     # Underscore.
                                  ('%', '\\%'),                  # Percent symbol.
                                  ('.0', '')			# For amounts (because they are converted from float to string).
                                  ]

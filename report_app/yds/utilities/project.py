@@ -99,7 +99,7 @@ def get_projects_by_region(a_region):
     region = reverse_short_regions[a_region]  # ex : 'Attiki' => 'GR.AT'
 
     call_url = "http://platform.yourdatastories.eu/api/json-ld/component/search.tcl?lang=el&q=type:PublicProject%20AND%20Duration:[1997%20TO%20"
-    call_url += year + "]%20AND%20hasRelatedFeature.hasGeometry.Address.region_code:" + region + "&rows=250&start=0"
+    call_url += year + "]%20AND%20hasRelatedFeature.hasGeometry.Address.region_code:" + region + "&rows=99999999&start=0"
 
     projects_json = get_json(call_url)
 
@@ -142,7 +142,7 @@ def get_projects_by_municipality(a_municipality):
     year = str(datetime.now().year)  # Current year.
 
     call_url = "http://platform.yourdatastories.eu/api/json-ld/component/search.tcl?lang=el&q=type:PublicProject%20AND%20Duration:[1997%20TO%20"
-    call_url += year + "]%20AND%20hasRelatedFeature.hasGeometry.Address.region_unit.en:%22" + quote(a_municipality) + "%22&rows=250&start=0"
+    call_url += year + "]%20AND%20hasRelatedFeature.hasGeometry.Address.region_unit.en:%22" + quote(a_municipality) + "%22&rows=99999999&start=0"
 
     projects_json = get_json(call_url)
 
