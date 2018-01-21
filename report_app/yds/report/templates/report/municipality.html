@@ -1,26 +1,49 @@
-{% load extra_util_filters %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "report/base-template.html" %}
 
-    {% load static %}
+{% load extra_util_filters %}
+
+{% block title %}
+    YDS+R | {{selected_region|municipality_gr_name:selected_municipality}}
+{% endblock %}
+
+{% block content %}
 
     {% if selected_region %}
-        Selected region : <b>{{selected_region}}</b> <br>
+        <h4>
+            <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
+            <b>{{selected_region|region_gr_name}}</b>
 
         {% if selected_municipality %}
-            Selected municipality : <b>{{selected_municipality}}</b>
-        <br> <br>
-        {% for title, url in projects.items %}
-            <a href="{% url 'report:create_pdf' selected_region selected_municipality url|split_id_from_url %}" title="Generate report PDF" download="{{title}}">{{title}}</a> <br>
-        {% endfor %}
+
+            <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
+            <b>{{selected_region|municipality_gr_name:selected_municipality}}</b>
+        </h4>
+        <h4>
+            <input type="text" name="keywords_field" class="keywords_field" id="keywords_field" placeholder="type keywords">
+        </h4>
+        <br>
+        <p>Συνολικός αριθμός έργων : {{total_number_of_projects}}</p>
+        <p id="founded"></p>
+
+        <br>
+
+        <div class="public-projects">
+            {% for title, url in projects.items %}
+                <div class="project">
+                    <a href="{% url 'report:create_pdf' selected_region selected_municipality url|split_id_from_url %}" title="Generate report PDF" download="{{title}}">{{title}}</a>
+                    <hr>
+                </div>
+            {% endfor %}
+        </div>
 
         {% endif %}
     {% endif %}
 
-</body>
-</html>
+{% endblock %}
+
+{% block extra_js %}
+    {% load staticfiles %}
+    <script type="text/javascript" src="{% static 'report/js/search.js' %}"></script>
+{% endblock %}
+
+

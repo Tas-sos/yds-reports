@@ -1,16 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "report/base-template.html" %}
 
+{% load extra_util_filters %}
+
+
+{% block title %}
+    YDS+R | {{selected_region|region_gr_name}}
+{% endblock %}
+
+
+{% block content %}
     {% if selected_region %}
 
-        <h1>Municipality of {{selected_region}}.</h1>
+        <h3>{{selected_region|region_gr_name}}.</h3>
+        <h4> Επιλέξτε τον νομό που επιθυμείται. </h4>
 
-        Now, please select a municipality :
         <form action="{% url 'report:selected_municipality' selected_region first_municipality %}" method="post" name="municipality_form" id="municipality_form">
             {% csrf_token %}
 
@@ -20,16 +23,17 @@
                 {% endfor %}
             </select>
 
-            <br> <br>
+            <br>
 
-            <input type="submit" name="municipality_submit" id="municipality_submit" value="Submit"/>
+            <input type="submit" name="municipality_submit" id="municipality_submit" class="submit-button btn btn-info" value="Συνέχεια"/>
         </form>
 
     {% endif %}
 
-    {% load static %}
-    <script type="text/javascript" src="{% static 'report/js/jquery-3.2.1.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'report/js/form_actions_municipality.js' %}"></script>
+{% endblock %}
 
-</body>
-</html>
+
+{% block extra_js %}
+    {% load staticfiles %}
+    <script type="text/javascript" src="{% static 'report/js/form_actions_municipality.js' %}"></script>
+{% endblock %}

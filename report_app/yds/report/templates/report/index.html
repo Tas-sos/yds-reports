@@ -1,34 +1,34 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "report/base-template.html" %}
+
+{% block title %}
+    YDS+R | Έκδοση αναφοράς δημόσιου έργου
+{% endblock %}
 
 
+{% block content %}
 
-    <h1>Your Data stories - Create report file</h1>
+    <h4> Επιλέξτε μια περιφέρεια. </h4>
 
-    Please select a region.
     <form action="{% url 'report:selected_region' first_region %}" method="post" name="region_form" id="region_form">
         {% csrf_token %}
 
         <select name="selected_region" id="selected_region">
             {% for key, value in regions.items %}
-
                 <option value="{{key}}">{{value}}</option>
-
             {% endfor %}
         </select>
 
-        <input type="submit" name="region_submit" id="region_submit" value="Submit" />
+        <br>
+
+        <input type="submit" name="region_submit" id="region_submit" class="submit-button btn btn-info" value="Συνέχεια" />
     </form>
 
+{% endblock %}
 
-    {% load static %}
-    <script type="text/javascript" src="{% static 'report/js/jquery-3.2.1.min.js' %}"></script>
+
+{% block extra_js %}
+    {% load staticfiles %}
     <script type="text/javascript" src="{% static 'report/js/form_actions_region.js' %}"></script>
+{% endblock %}
 
-</body>
-</html>
+
