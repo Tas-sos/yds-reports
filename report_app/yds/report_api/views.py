@@ -32,7 +32,7 @@ def all_municipalities(request, a_region):
     όλους τους δήμους της εκάστοτε περιφερειακής ενότητας.
     :param request: Το URL request.
     :param a_region: Ποια περιφερειακή ενότητα έχει δοθεί ως παράμετρος.
-    :return: Επιστρέφει σε JSON μορφή όλους τους νομούς της περιφερειακής ενότητας.
+    :return: Επιστρέφει σε JSON μορφή όλους τους νομούς της περιφερειακής ενότητας που δίνεται ως παράμετρος.
     """
 
     try:
@@ -49,7 +49,7 @@ def all_municipalities(request, a_region):
 
 def all_projects(request, a_region, a_municipality):
     """
-    Εμφάνισει όλων των έργων ενός δήμου.
+    Επιστροφή όλων των έργων ενός νομού.
 
     Όταν κάποιος αιτηθεί το εξής ερώτημα : "/api/Attiki/N. ANATOLIKIS ATTIKIS" τότε εκτελείται αυτό το view που σκοπό
     έχει να επιστρέψει όλα τα δημόσια έργα του εκάστοτε νομού.
@@ -82,9 +82,12 @@ def redirect_to_download_pdf(request, a_region, a_municipality, a_project):
     Αναπροσαρμογή του requested URL και ανακατεύθυνση του στο σωστό view.
 
     Όταν κάποιος αιτηθεί το εξής ερώτημα :
-    "/api/Attiki/N. ANATOLIKIS ATTIKIS/http://linkedeconomy.org/resource/PublicWork/525244" τότε εκτελείται αυτό το view
-    που έχει ως σκοπό απλώς να διορθώσει το URL ώστε να το κάνει : "/api/Attiki/N. ANATOLIKIS ATTIKIS/525244" και έτσι
-    να απευθυνθεί στο αρμόδιο view.
+    "/api/Attiki/N. ANATOLIKIS ATTIKIS/http://linkedeconomy.org/resource/PublicWork/525244"
+    
+    τότε εκτελείται αυτό το view που έχει ως σκοπό απλώς να διορθώσει το URL ώστε να το κάνει :
+    "/api/Attiki/N. ANATOLIKIS ATTIKIS/525244"
+    
+    και έτσι να απευθυνθεί στο αρμόδιο view.
     :param request: Το URL request.
     :param a_region: Ποια περιφερειακή ενότητα έχει δοθεί ως παράμετρος.
     :param a_municipality: Ποιος νομός έχει δοθεί ως παράμετρος.
@@ -92,7 +95,6 @@ def redirect_to_download_pdf(request, a_region, a_municipality, a_project):
     :return: Αναπροσαρμόζει το requested URL ώστε να περιέχει μονάχα το id του έργου και το ανακατευθύνει στο σωστό view.
     """
 
-    base_linkedeconomy_url = "http://linkedeconomy.org/resource/PublicWork/"
     if not str(a_project).startswith("http://linkedeconomy.org/resource/PublicWork/"):
         raise Http404("You haven't set a \"linkedeconomy.org\" link, for example : \"http://linkedeconomy.org/resource/PublicWork/443856/\".")
 
@@ -167,4 +169,7 @@ def download_pdf(request, a_region, a_municipality, a_project):
                 raise Http404("The municipality \"{0}\" was not found it!".format(a_municipality))
     except KeyError:
         raise Http404("The region \"{0}\" was not found it!".format(a_region))
+
+
+
 
