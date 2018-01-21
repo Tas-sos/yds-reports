@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+    <head>
+        <meta charset="UTF-8">
+        <meta name='keywords' content='pdf, public, project, diavgeia, yourdatastories, report, document'>
+        <meta name='description' content='Generate report PDF document for a public project.'>
+        <meta name='author' content='Tas-sos'>
+        <meta name='designer' content='Tas-sos'>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>
+            {% block title %}
+            {% endblock %}
+        </title>
+
+        {% load staticfiles %}
+        <link type="text/css" rel="stylesheet" href="{% static 'report/css/bootstrap.css'%}" />
+        <link type="text/css" rel="stylesheet" href="{% static 'report/css/main.css'%}" />
+
+    </head>
+    <body>
+
+        <header>
+            <a href="{% url 'report:index' %}">
+                <img src="{% static 'report/images/diavgeia-logo.png' %}" alt="Δι@ύγεια">  <div class="plus">+</div>
+                <img src="{% static 'report/images/yds-logo.png' %}" alt="YDS">
+            </a>
+
+            <nav class="nav-bar">
+                <a href="{% url 'report:index' %}">Έκδοση αναφοράς</a>
+                <a href="#">Πληροφορίες</a>
+                <a href="https://github.com/Tas-sos/yds-reports/" title="GitHub" target="_blank">Συνεισφορά</a>
+            </nav>
+
+        </header>
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+
+
+        <script type="text/javascript" src="{% static 'report/js/jquery-3.2.1.min.js' %}"></script>
+        {% block extra_js%}
+        {% endblock %}
+
+        <footer class=".panel-footer">
+            <p class="text-muted">This platform has been developed in the context of <a href="https://yourdatastories.eu/features/hackathons/yds-hackathon-athens/" target="_blank">YDS Hackathon in Athens</a>
+            by Anastasio Lisgara.</p>
+        </footer>
+
+    </body>
+</html>
+

@@ -1,0 +1,230 @@
+*
+{
+    padding: 0px;
+    margin: 0px;
+}
+
+
+*, *:before, *:after
+{
+    box-sizing: inherit;
+}
+
+
+html
+{
+    height: 100%;
+    box-sizing: border-box;
+}
+
+
+body
+{
+    background-color: #e3f5ff;
+
+    position: relative;
+    margin: 0;
+    padding-bottom: 6rem;
+    min-height: 100%;
+}
+
+
+
+
+/* ---------------------------------------- Header styling ---------------------------------------- */
+
+
+
+
+header
+{
+    background-color: rgba(49, 98, 138, 0.3);
+    padding: 5px;
+    width: available;
+
+    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+
+}
+
+header:hover a
+{
+    text-decoration: none;
+}
+
+header:after a
+{
+    text-decoration: none;
+}
+
+header:active a
+{
+    text-decoration: none;
+}
+
+header:focus a
+{
+    text-decoration: none;
+}
+
+
+/* The plus symbol between the logos.*/
+div.plus
+{
+    font-size: 30px;
+    font-weight: bold;
+    color: #3875d7;
+
+    /* Set on the middle of the line*/
+    vertical-align:middle;
+
+    /* Transform */
+    transform: rotate(10deg);
+    -moz-transform: rotate(10deg) ;
+    -ms-transform: rotate(10deg) ;
+    -o-transform: rotate(10deg) ;
+    -webkit-transform: rotate(10deg) ;
+
+    display:inline-block; /* Like span. */
+
+}
+
+/* --------------- End logo ---------------------- */
+
+
+/* --------------- Start nav menu ---------------------- */
+
+nav.nav-bar
+{
+    text-align: center;
+}
+
+
+nav.nav-bar a
+{
+
+    text-align: center;
+    padding: 7px;
+    margin: 14px 16px;
+    font-size: 17px;
+}
+
+
+nav.nav-bar a:hover
+{
+    background-color: rgba(49, 98, 138,0.4);
+    text-decoration: none;
+
+    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+
+    padding: 5px;
+
+}
+
+
+/* ---------------------------------------- End styling for header ---------------------------------------- */
+
+
+.container
+{
+    margin-top: 15px; /* Ώστε να έχουνε μια απόσταση από το header */
+    min-height: 100%;
+    margin-bottom: auto;
+}
+
+
+
+select
+{
+    background-color: cornsilk;
+    color: #003366;
+    font-size: 16px;
+}
+
+
+
+.submit-button
+{
+    margin-top: 10px; /* Απόσταση από το παραπάνω drop-down list. */
+    font-size: 16px;
+
+}
+
+
+.keywords_field
+{
+    background-color: cornsilk;
+    color: #003366;
+
+    width: auto;
+    height: 35px;
+
+    border: 1px solid #3a86c4;
+
+    padding: 3px;
+}
+
+
+.keywords_field:hover
+{
+    border: 2px solid #3165c4;
+}
+
+.keywords_field:focus
+{
+    border: 2px solid #3165c4;
+}
+
+
+
+/* Project list box. */
+
+.public-projects
+{
+    background-color: white;
+
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+
+    padding: 15px; /* Εσωτερική απόσταση από τα άκρα. */
+    margin-bottom: 20px;
+}
+
+
+
+/* -------------------------- Footer -------------------------- */
+
+
+footer
+{
+    /* Positioning. */
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+
+    /* Space. */
+    width: 100%;
+    margin-top: 20px; /* Εξωτερική απόσταση από πάνω. */
+
+    /* Color. */
+    background-color: rgba(49, 98, 138, 0.3);
+    text-align: center;
+}
+
+
+.copyleft
+{
+  display:inline-block;
+  transform: rotate(180deg);
+}
+
+
+
+
+
