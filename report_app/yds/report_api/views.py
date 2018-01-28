@@ -5,6 +5,8 @@ from django.core.files.storage import FileSystemStorage
 from utilities.data_set import regions, municipality
 from utilities.project import get_projects_by_municipality, get_project_data, search, generate_pdf, pdf_name
 
+from os.path import dirname, abspath, join  # To define the "STATIC_ROOT" path. ( Look at the "yds/settings.py" file. )
+
 
 
 def all_regions(request):
@@ -121,6 +123,8 @@ def download_pdf(request, a_region, a_municipality, a_project):
     """
 
     a_project = "http://linkedeconomy.org/resource/PublicWork/" + str(a_project)
+    base_dir = dirname(dirname(abspath(__file__)))
+    static_root = join(base_dir, "static/report/download/")
 
     try:
         if regions[a_region]:  # Αν υπάρχει η περιφέρεια μέσα στις περιφέρειες
@@ -143,7 +147,7 @@ def download_pdf(request, a_region, a_municipality, a_project):
                             # Generating the report PDF for this project:
                             try:
                                 generate_pdf(project_data, related_articles,
-                                             pdf_name("report/static/report/download/", a_project))
+                                             pdf_name(static_root, a_project))
                             except ValueError as log:
                                 print("Compiler error from LaTeX, for project : {0}".format(a_project))
                                 print('-------------------------------------------------------------------------------------------------------')
@@ -154,7 +158,7 @@ def download_pdf(request, a_region, a_municipality, a_project):
 
                                 return render(request, 'report/pdf.html', {'project_url': a_project})
 
-                            file_system = FileSystemStorage('report/static/report/download/')
+                            file_system = FileSystemStorage(static_root)
                             with file_system.open(file_name) as pdf:
 
                                 # Create the HttpResponse object with the appropriate PDF headers.

@@ -5,14 +5,17 @@ from django.core.files.storage import FileSystemStorage
 from utilities.data_set import regions, municipality
 from utilities.project import get_projects_by_municipality, get_project_data, search, generate_pdf, pdf_name
 
+from os.path import dirname, abspath, join  # To define the "STATIC_ROOT" path. ( Look at the "yds/settings.py" file. )
+
+
 
 def index(request):
     """
     View που καλείται όταν ο χρήστης επισκεφτεί την αρχική σελίδα και θα πρέπει να επιλέξει μια περιφερειακή ενότητα.
 
     Δίνεται στη σελίδα :
-	- Το λεξικό με όλες τις περιφερειακές ενότητες.
-	- Την πρώτη περιφερειακή ενότητα ( στο λεξικό - για λόγους υλοποίησης στο action της φόρμας της σελίδας - ).
+    - Το λεξικό με όλες τις περιφερειακές ενότητες.
+    - Την πρώτη περιφερειακή ενότητα ( στο λεξικό - για λόγους υλοποίησης στο action της φόρμας της σελίδας - ).
 
     :param request: Το αίτημα του χρήστη.
     :return: Την σελίδα «report/index.html» με τις παραπάνω πληροφορίες.
@@ -111,6 +114,9 @@ def create_pdf(request, a_region, a_municipality, project_url_id):
     url = "http://linkedeconomy.org/resource/PublicWork/" + str(project_url_id)
     file_name = str(project_url_id) + ".pdf"
 
+    base_dir = dirname( dirname(abspath(__file__)) )
+    static_root = join(base_dir, "static/report/download/")
+
     # Downloading data from this project :
     project_data = get_project_data(url)
 
@@ -119,7 +125,7 @@ def create_pdf(request, a_region, a_municipality, project_url_id):
 
     # Generating the report PDF for this project :
     try:
-        generate_pdf(project_data, related_articles, pdf_name("report/static/report/download/", url))
+        generate_pdf(project_data, related_articles, pdf_name(static_root, url))
     except ValueError as log:
         print("Compiler error from LaTeX, for project : {0}".format(url))
         print('-------------------------------------------------------------------------------------------------------')
@@ -132,7 +138,7 @@ def create_pdf(request, a_region, a_municipality, project_url_id):
 
     # Create response :
 
-    file_system = FileSystemStorage('report/static/report/download/')
+    file_system = FileSystemStorage(static_root)
     with file_system.open(file_name) as pdf:
 
         # Create the HttpResponse object with the appropriate PDF headers.
@@ -140,6 +146,3 @@ def create_pdf(request, a_region, a_municipality, project_url_id):
         response['Content-Disposition'] = 'attachment; filename="' + file_name + '"'
 
         return response
-
-
-
