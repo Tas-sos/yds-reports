@@ -1,0 +1,4 @@
+beautifulsoup4==4.6.0
+Django==2.0
+pyGoogleSearch==2.5
+requests==2.18.4
