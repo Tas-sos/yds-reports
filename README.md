@@ -117,6 +117,7 @@ webApps/
 * **Διαχείριση στατικών αρχείων.**<br>
 Προς διευκόλυνση του διακομιστή ιστοσελίδων πρέπει να συγκεντρώσουμε όλα στατικά αρχεία σε ένα μέρος. Ευτυχώς για αυτό δεν χρειάζεται να κάνουμε τίποτα παραπάνω από το να τρέξουμε απλώς την παρακάτω απλή εντολή : <br><br>
 `python manage.py collectstatic`<br><br>
+`python manage.py migrate`<br><br>
 Πλέον θα παρατηρήσετε πως έχετε αυτή την δομή στον κατάλογο όπου φιλοξενείται η εφαρμογή σας :
 ```bash
 webApps/
@@ -166,13 +167,13 @@ webApps/
 ώστε να είναι ακριβώς έτσι :<br><br>
 
 ```
-## Django configurations :
-WSGIScriptAlias / /home/user/webApps/ydsR/yds/wsgi.py
-WSGIPythonHome /home/user/webApps/ydsR/.venv_ydsR
-WSGIPythonPath /home/user/webApps/ydsR/
-
-
 <VirtualHost *:80>
+
+  # Django configurations :
+  WSGIScriptAlias / /home/user/webApps/ydsR/yds/wsgi.py
+  WSGIDaemonProcess your.domain.com python-home=/home/user/webApps/ydsR/.venv_ydsR python-path=/home/user/webApps/ydsR/
+  WSGIProcessGroup your.domain.com
+
 
 	DocumentRoot /home/user/webApps/ydsR
 
@@ -198,7 +199,9 @@ WSGIPythonPath /home/user/webApps/ydsR/
 
 </VirtualHost>
 ```
-> **Προσοχή!** Όπου `/home/user/`, «user» είναι το όνομα και αντίστοιχα ο προσωπικός κατάλογος του χρήστη στον οποιό έχουμε τοποθετήσει την εφαρμογή. Εσάς προφανώς το όνομα του χρήστει θα είναι διαφορετικό. Αλλάξτε λοιπόν απλά το «user» με το όνομα του δικού σας χρήστη.
+> **Προσοχή!**<br>
+1) Όπου `/home/user/`, «user» είναι το όνομα και αντίστοιχα ο προσωπικός κατάλογος του χρήστη στον οποιό έχουμε τοποθετήσει την εφαρμογή. Εσάς προφανώς, το όνομα του χρήστη, θα είναι διαφορετικό. Αλλάξτε λοιπόν απλά το «user» με το όνομα του δικού σας χρήστη.<br>
+2) Όπου `your.domain.com` είναι το όνομα του τομέα ( domain name ) που έχετε αντιστοιχίσει στον διακομιστή σας.
 
 Αποθηκεύουμε και κλείνουμε το αρχείο.<br>
 Έπειτα ενεργοποιούμε το αρχείο ώστε να το λαμβάνει υπόψιν του ο Apache2 web server : <br><br>
