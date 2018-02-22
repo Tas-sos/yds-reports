@@ -53,6 +53,7 @@ def set_latex(project_data, articles):
     images_path = path.dirname(__file__) + "/images/"
 
     LaTeX_special_characters = [ ('&', '\&'),
+                                 ('\n\n\n', '\\\\~\\\\'),  # Three new lines.
                                  ('\n\n', '\\\\~\\\\'),         # Two new lines.
                                  ('\n', '\\newline '),          # New line character.
                                  ("_", "\\textunderscore "),     # Underscore.
@@ -66,7 +67,6 @@ def set_latex(project_data, articles):
     project_data['completion_of_payments']  = str(project_data['completion_of_payments'])
     project_data['completion_of_contracts'] = str(project_data['completion_of_contracts'])
 
-
     # Avoid special characters :
     for k, v in LaTeX_special_characters:
         project_data['title']                   = project_data['title'].replace(k, v)
@@ -77,6 +77,10 @@ def set_latex(project_data, articles):
         project_data['completion_of_payments']  = project_data['completion_of_payments'].replace(k, v)
         project_data['completion_of_contracts'] = project_data['completion_of_contracts'].replace(k, v)
         project_data['description']             = project_data['description'].replace(k, v)
+
+    # Avoid special case at the end :
+    if '\\newline' in project_data['description'][-9:]:
+        project_data['description'] = project_data['description'][:-9]
 
 
     latex = r"""\documentclass[12pt,a4paper]{report}
