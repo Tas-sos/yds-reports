@@ -6,9 +6,17 @@
     YDS+R | {{selected_region|municipality_gr_name:selected_municipality}}
 {% endblock %}
 
+{% load staticfiles %}
+{% block extra_css %}
+    <link type="text/css" rel="stylesheet" href="{% static 'report/css/loading.css'%}" />
+{% endblock %}
+
 {% block content %}
 
+    {% load staticfiles %}
+
     {% if selected_region %}
+
         <h4>
             <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
             <b>{{selected_region|region_gr_name}}</b>
@@ -30,7 +38,7 @@
         <div class="public-projects">
             {% for title, url in projects.items %}
                 <div class="project">
-                    <a href="{% url 'report:create_pdf' selected_region selected_municipality url|split_id_from_url %}" title="Generate report PDF" download="{{title}}">{{title}}</a>
+                    <a href="{% static 'report/download/' %}{{url}}.pdf" title="Generate report PDF" target="_blank">{{title}}</a>
                     <hr>
                 </div>
             {% endfor %}
@@ -42,8 +50,9 @@
 {% endblock %}
 
 {% block extra_js %}
-    {% load staticfiles %}
     <script type="text/javascript" src="{% static 'report/js/search.js' %}"></script>
+    <script type="text/javascript" src="{% static 'report/js/loading.js' %}"></script>
+    <script type="text/javascript" src="{% static 'report/js/create_pdf_AJAX.js' %}"></script>
 {% endblock %}
 
 
