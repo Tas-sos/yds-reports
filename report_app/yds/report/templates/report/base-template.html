@@ -16,6 +16,8 @@
         {% load staticfiles %}
         <link type="text/css" rel="stylesheet" href="{% static 'report/css/bootstrap.css'%}" />
         <link type="text/css" rel="stylesheet" href="{% static 'report/css/main.css'%}" />
+        {% block extra_css %}
+        {% endblock %}
 
     </head>
     <body>
