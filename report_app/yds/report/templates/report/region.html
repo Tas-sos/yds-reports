@@ -12,7 +12,7 @@
     {% if selected_region %}
 
         <h3>{{selected_region|region_gr_name}}.</h3>
-        <h4> Επιλέξτε τον νομό που επιθυμείται. </h4>
+        <h4> Επιλέξτε τον νομό που επιθυμείτε. </h4>
 
         <form action="{% url 'report:selected_municipality' selected_region first_municipality %}" method="post" name="municipality_form" id="municipality_form">
             {% csrf_token %}

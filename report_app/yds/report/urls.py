@@ -9,6 +9,9 @@ urlpatterns = [
         # Home page.
         path('', views.index, name='index'),
 
+        # About page.
+        path('about/', views.about, name='about'),
+
         # ex : /Attiki/
         path('<str:a_region>/', views.selected_region, name='selected_region'),
 

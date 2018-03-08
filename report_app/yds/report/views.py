@@ -31,6 +31,21 @@ def index(request):
 
 
 
+def about(request):
+    """
+    View που καλείται όταν ο χρήστης επισκεφτεί την σελίδα "Πληροφορίες".
+
+    Απλώς επιστρέφει ένα στατικό HTML αρχείο.
+
+    :param request: Το αίτημα του χρήστη.
+    :return: Την σελίδα «report/about.html».
+    """
+
+    return render(request, 'report/about.html')
+
+
+
+
 def selected_region(request, a_region):
     """
     View που καλείται όταν ο χρήστης έχει επιλέξει μια περιφερειακή ενότητα και θα πρέπει να επιλέξει ένα νομό.
